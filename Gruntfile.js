@@ -23,6 +23,22 @@ module.exports = function (grunt) {
       }
     },
 
+    requirejs: {
+      all: {
+        options: {
+          baseUrl: 'js/src',
+          name: 'main',
+          out: 'js/app.min.js',
+          optimize: 'uglify2',
+          paths: {
+            'jquery': 'empty:',
+            'hogan': 'empty:'
+          },
+          cjsTranslate: true
+        }
+      }
+    },
+
     less: {
       all: {
         compress: true,
@@ -38,6 +54,14 @@ module.exports = function (grunt) {
       },
       options: {
         csslintrc: '.csslintrc'
+      }
+    },
+
+    cssmin: {
+      css: {
+        files: {
+          'css/app.min.css': 'css/app.css'
+        }
       }
     },
 
@@ -91,14 +115,16 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-bump');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hogan');
   grunt.loadNpmTasks('intern');
 
-  grunt.registerTask('css', ['less', 'csslint']);
-  grunt.registerTask('js', ['jshint', 'hogan']);
+  grunt.registerTask('css', ['less', 'csslint', 'cssmin']);
+  grunt.registerTask('js', ['jshint', 'hogan', 'requirejs']);
   grunt.registerTask('build', ['js', 'css']);
   grunt.registerTask('test', ['build', 'intern']);
   grunt.registerTask('start', ['build', 'intern', 'connect', 'watch']);
