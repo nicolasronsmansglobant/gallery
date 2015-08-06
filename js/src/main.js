@@ -6,7 +6,6 @@ require.config({
   }
 });
 
-requirejs([], function () {
-  // TODO
+requirejs(['jquery', 'gallery'], function ($, gallery) {
+  $('#gallery').append(gallery.generate(10));
 });
-
