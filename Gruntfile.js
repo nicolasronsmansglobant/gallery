@@ -41,6 +41,17 @@ module.exports = function (grunt) {
       }
     },
 
+    intern: {
+      all: {
+        options: {
+          runType: 'client',
+          config: 'tests/intern',
+          reporters: ['console'],
+          suites: ['tests/app']
+        }
+      }
+    },
+
     connect: {
       all: {
         options: {
@@ -84,10 +95,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hogan');
+  grunt.loadNpmTasks('intern');
 
   grunt.registerTask('css', ['less', 'csslint']);
   grunt.registerTask('js', ['jshint', 'hogan']);
   grunt.registerTask('build', ['js', 'css']);
-  grunt.registerTask('start', ['build', 'connect', 'watch']);
+  grunt.registerTask('test', ['build', 'intern']);
+  grunt.registerTask('start', ['build', 'intern', 'connect', 'watch']);
   grunt.registerTask('default', ['start']);
 };

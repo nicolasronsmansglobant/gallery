@@ -1,7 +1,7 @@
 define({
   useLoader: {
     'host-node': 'requirejs',
-    'host-browser': '/node_modules/requirejs/require.js'
+    'host-browser': 'node_modules/requirejs/require.js'
   },
   loader: {
     packages: [
@@ -12,7 +12,13 @@ define({
       }
     ],
     paths: {
-      // TODO
+      'template': 'js/src/template',
+      'gallery': 'js/src/gallery',
+      'card': 'js/src/card',
+      'image': 'js/src/image',
+      'caption': 'js/src/caption',
+      'author': 'js/src/author',
+      'utils': 'js/src/utils'
     }
   },
   suites: ['tests/app'],

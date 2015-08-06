@@ -17,6 +17,7 @@
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-hogan": "^0.3.0",
+    "intern": "^3.0.0",
     "lesshat": "^3.0.2"
   }
 }
