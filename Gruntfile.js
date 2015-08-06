@@ -23,6 +23,24 @@ module.exports = function (grunt) {
       }
     },
 
+    less: {
+      all: {
+        compress: true,
+        files: {
+          'css/app.css': 'css/src/app.less'
+        }
+      }
+    },
+
+    csslint: {
+      all: {
+        src: ['css/**/*.css']
+      },
+      options: {
+        csslintrc: '.csslintrc'
+      }
+    },
+
     connect: {
       all: {
         options: {
@@ -42,6 +60,13 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      css: {
+        files: ['css/src/**/*.less'],
+        tasks: ['css'],
+        options: {
+          livereload: true
+        }
+      },
       general: {
         files: ['index.html', 'tests/**/*.js'],
         options: {
@@ -54,12 +79,15 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-bump');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hogan');
 
+  grunt.registerTask('css', ['less', 'csslint']);
   grunt.registerTask('js', ['jshint', 'hogan']);
-  grunt.registerTask('build', ['js']);
+  grunt.registerTask('build', ['js', 'css']);
   grunt.registerTask('start', ['build', 'connect', 'watch']);
   grunt.registerTask('default', ['start']);
 };
